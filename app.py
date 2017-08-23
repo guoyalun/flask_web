@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from flask import Flask,render_template,request,flash
+from flask import Flask,render_template,request,flash,redirect,url_for
 from flask_bootstrap import Bootstrap
 from hello import  UserForm
 import MySQLdb
@@ -20,6 +20,10 @@ def index():
         age = form.age.data
         save(name,password,age)
         flash('Looks like you have save your name(%s)!'%name)
+        form.name.data = ""
+        form.password.data = ""
+        form.age.data = ""
+        return redirect(url_for("index"))
     return  render_template("index.html",form = form)
 
 
